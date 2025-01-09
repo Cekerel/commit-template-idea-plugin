@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package cn.cekerel.artifact.jetbrains.plugin.git.commit.template;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;

@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package cn.cekerel.artifact.jetbrains.plugin.git.commit.template;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;

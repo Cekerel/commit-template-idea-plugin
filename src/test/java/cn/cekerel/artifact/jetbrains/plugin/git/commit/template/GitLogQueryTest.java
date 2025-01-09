@@ -1,14 +1,16 @@
-package com.leroymerlin.commit;
+package cn.cekerel.artifact.jetbrains.plugin.git.commit.template;
 
-import org.junit.Ignore;
-import org.junit.Test;
+
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 public class GitLogQueryTest {
 
     @Test
-    @Ignore("manual testing")
+    @Disabled("manual testing")
     public void testExecute() {
         GitLogQuery.Result result = new GitLogQuery(new File("<absolute path>")).execute();
 

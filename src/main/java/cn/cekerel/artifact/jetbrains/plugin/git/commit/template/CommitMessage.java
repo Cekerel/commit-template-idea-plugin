@@ -1,12 +1,10 @@
-package com.leroymerlin.commit;
+package cn.cekerel.artifact.jetbrains.plugin.git.commit.template;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 /**
  * @author Damien Arrachequesne <damien.arrachequesne@gmail.com>
@@ -44,7 +42,7 @@ class CommitMessage {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(changeType.label());
-        if (isNotBlank(changeScope)) {
+        if (StringUtils.isNotBlank(changeScope)) {
             builder
                     .append('(')
                     .append(changeScope)
@@ -54,14 +52,14 @@ class CommitMessage {
                 .append(": ")
                 .append(shortDescription);
 
-        if (isNotBlank(longDescription)) {
+        if (StringUtils.isNotBlank(longDescription)) {
             builder
                     .append(System.lineSeparator())
                     .append(System.lineSeparator())
                     .append(wrapText ? WordUtils.wrap(longDescription, MAX_LINE_LENGTH) : longDescription);
         }
 
-        if (isNotBlank(breakingChanges)) {
+        if (StringUtils.isNotBlank(breakingChanges)) {
             String content = "BREAKING CHANGE: " + breakingChanges;
             builder
                     .append(System.lineSeparator())
@@ -69,7 +67,7 @@ class CommitMessage {
                     .append(wrapText ? WordUtils.wrap(content, MAX_LINE_LENGTH) : content);
         }
 
-        if (isNotBlank(closedIssues)) {
+        if (StringUtils.isNotBlank(closedIssues)) {
             builder.append(System.lineSeparator());
             for (String closedIssue : closedIssues.split(",")) {
                 builder

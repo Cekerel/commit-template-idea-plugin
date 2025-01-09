@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.leroymerlin.commit.CommitPanel">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="cn.cekerel.artifact.jetbrains.plugin.git.commit.template.CommitPanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="974" height="621"/>
+      <xy x="20" y="20" width="992" height="720"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -123,7 +123,7 @@
           <text value="Skip CI?"/>
         </properties>
       </component>
-      <grid id="1360f" layout-manager="GridLayoutManager" row-count="11" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="1360f" layout-manager="GridLayoutManager" row-count="12" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -162,7 +162,7 @@
             </constraints>
             <properties>
               <actionCommand value="docs"/>
-              <text value="docs - Documentation only changes"/>
+              <text value="docs - Documentation only changes (markdown, plain text, etc)"/>
             </properties>
           </component>
           <component id="621d2" class="javax.swing.JRadioButton" binding="styleRadioButton">
@@ -171,7 +171,7 @@
             </constraints>
             <properties>
               <actionCommand value="style"/>
-              <text value="style - Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"/>
+              <text value="style - Changes that do not affect the meaning of the code (white-space, formatting, missing semicolons, etc)"/>
             </properties>
           </component>
           <component id="7d0c5" class="javax.swing.JRadioButton" binding="refactorRadioButton">
@@ -180,7 +180,7 @@
             </constraints>
             <properties>
               <actionCommand value="refactor"/>
-              <text value="refactor - A code change that neither fixes a bug nor adds a feature"/>
+              <text value="refactor - A code change that neither fixes a bug nor adds a feature but adjust the structure or the composition"/>
             </properties>
           </component>
           <component id="1325a" class="javax.swing.JRadioButton" binding="perfRadioButton">
@@ -190,7 +190,7 @@
             <properties>
               <actionCommand value="perf"/>
               <selected value="false"/>
-              <text value="perf - A code change that improves performance"/>
+              <text value="perf - A code change that improves performance (example scopes: cache-mechanism integration, using pooling strategy)"/>
             </properties>
           </component>
           <component id="c1b37" class="javax.swing.JRadioButton" binding="testRadioButton">
@@ -208,7 +208,7 @@
             </constraints>
             <properties>
               <actionCommand value="build"/>
-              <text value="build - Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)"/>
+              <text value="build - Changes that affect the build system or external dependencies (example scopes: mvn, gradlew, gulp, broccoli, npm)"/>
             </properties>
           </component>
           <component id="d4c37" class="javax.swing.JRadioButton" binding="ciRadioButton">
@@ -217,25 +217,34 @@
             </constraints>
             <properties>
               <actionCommand value="ci"/>
-              <text value="ci - Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"/>
+              <text value="ci - Changes to our CI configuration files and scripts (example scopes: Gitlab-CI, Travis, Circle, BrowserStack, SauceLabs)"/>
             </properties>
           </component>
           <component id="9b279" class="javax.swing.JRadioButton" binding="choreRadioButton">
             <constraints>
-              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <actionCommand value="chore"/>
-              <text value="chore - Other changes that don't modify src or test files"/>
+              <text value="chore - Other changes that don't modify src or test files (example scope: media file addition, gitignore)"/>
             </properties>
           </component>
           <component id="3f8cc" class="javax.swing.JRadioButton" binding="revertRadioButton">
             <constraints>
-              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <actionCommand value="revert"/>
               <text value="revert - Reverts a previous commit"/>
+            </properties>
+          </component>
+          <component id="f599e" class="javax.swing.JRadioButton" binding="configRadioButton">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <actionCommand value="config"/>
+              <text value="config - A code change that add or remove some configuration in the resourse directory (example scopes: yaml, properties, json, xml)"/>
             </properties>
           </component>
         </children>
@@ -255,6 +264,7 @@
       <member id="9b279"/>
       <member id="3f8cc"/>
       <member id="2ac27"/>
+      <member id="f599e"/>
     </group>
   </buttonGroups>
 </form>

@@ -1,4 +1,4 @@
-package com.leroymerlin.commit;
+package cn.cekerel.artifact.jetbrains.plugin.git.commit.template;
 
 import com.intellij.openapi.project.Project;
 
@@ -29,6 +29,7 @@ public class CommitPanel {
     private JRadioButton ciRadioButton;
     private JRadioButton choreRadioButton;
     private JRadioButton revertRadioButton;
+    private JRadioButton configRadioButton;
     private ButtonGroup changeTypeGroup;
 
     CommitPanel(Project project, CommitMessage commitMessage) {

@@ -1,0 +1,99 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
+buildscript {
+    ext {
+        set('jetbrainsPluginVersion', '2.2.1')
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij.platform' version "${jetbrainsPluginVersion}"
+    id 'maven-publish'
+    id 'org.jetbrains.changelog' version "${jetbrainsPluginVersion}"
+}
+
+group = providers.gradleProperty("pluginGroup").get()
+version = providers.gradleProperty("pluginVersion").get()
+
+repositories {
+    mavenLocal()
+    // Aliyun Repo
+    maven { url "https://maven.aliyun.com/repository/public/" }
+    mavenCentral()
+
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    intellijPlatform {
+        create(IntelliJPlatformType.IntellijIdeaCommunity, getProviders().gradleProperty("pluginVersion"))
+    }
+
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+}
+
+// Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
+intellijPlatform {
+    instrumentCode = true
+
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+            untilBuild = providers.gradleProperty("pluginUntilBuild")
+        }
+
+        version = providers.gradleProperty("pluginVersion")
+
+        // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
+        def description = providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
+            def start = "<!-- Plugin description -->"
+            def end = "<!-- Plugin description end -->"
+
+            with(it.lines()) {
+                if (!containsAll(listOf(start, end))) {
+                    throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
+                }
+                subList(indexOf(start) + 1, indexOf(end)).joinToString("\n").let(markdownToHTML)
+            }
+        }
+
+        // Get the latest available change notes from the changelog file
+        def changeNotes = providers.gradleProperty("pluginVersion").map { pluginVersion ->
+            with(changelog) {
+                renderItem(
+                        (getOrNull(pluginVersion) ?: getUnreleased())
+                                .withHeader(false)
+                                .withEmptySections(false),
+                        Changelog.OutputType.HTML,
+                )
+            }
+        }
+    }
+}
+
+// Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
+changelog {
+    groups.empty()
+    repositoryUrl = providers.gradleProperty("pluginRepositoryUrl")
+}
+
+tasks {
+    wrapper {
+        gradleVersion = providers.gradleProperty("gradleVersion").get()
+    }
+
+    publishPlugin {
+        dependsOn(patchChangelog)
+    }
+
+    patchPluginXml {
+        sinceBuild = providers.gradleProperty("pluginSinceBuild")
+        untilBuild = providers.gradleProperty("pluginUntilBuild")
+    }
+}

@@ -1,9 +1,10 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>commit-template-idea-plugin</id>
     <name>Git Commit Template</name>
     <version>1.2.0</version>
 
-    <vendor email="damien.arrachequesne@gmail.com" />
+    <vendor email="zt1335204909@gmail.com" />
 
     <description><![CDATA[
         <p>Create a commit message with the following template:</p>
@@ -17,21 +18,20 @@
         </pre>
     ]]></description>
 
-    <idea-version since-build="145.0"/>
+    <idea-version since-build="242.0"/>
 
-    <depends>com.intellij.modules.vcs</depends>
+    <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
     </extensions>
 
     <actions>
-        <action id="Commit.Button" class="com.leroymerlin.commit.CreateCommitAction"
+        <action id="Commit.Button" class="cn.cekerel.artifact.jetbrains.plugin.git.commit.template.CreateCommitAction"
                 text="Create commit message"
                 description="Create commit message"
                 icon="/icons/load.png">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
         </action>
     </actions>
-
 </idea-plugin>
